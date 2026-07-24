@@ -1,57 +1,101 @@
-tasks = ["1.python lerning","\n2.solve dsa1","\n3.go to gym"]
-def add_task(a):
-    # a = input("enter your task ")
-    tasks.append(a)
-    print("your task :-",a,"added into the tasks")
+tasks = []
+def add_task(task):
+    tasks.append(task)
+    print(f'"{task}"added task sucsessfully')
 
-def delet_task(b):
-    tasks.remove(b)
-    print("your task is deleted")
+def show_task():
+    if(len(tasks)== 0):
+        print("no task exist to show")
+        return 
+    
+    print("\n__________YOUR TASKS__________")
+
+    for index,task in enumerate(tasks,start=1):
+        print(f"{index}.{task}")
+        
+
+def delete_task():
+    if(len(tasks)==0):
+        print("no task exist to delete")
+        return
+    
+    try:
+        task_no = int(input("inter task no"))
+        deleted = tasks.pop(task_no - 1)
+        print(f"your task{deleted}.delete sucseffuly")
+        show_task()
+
+    except ValueError:
+        print("enter correct task no ..")
 
 def marks_complete():
-    task_no = int(input("enter task no you wannt to mark as complete: = "))
-    if task_no <=  len(tasks) and task_no >= 0 :
-        tasks[task_no - 1] = "✅"+tasks[task_no - 1]
-        print(tasks)
-    else:
-        print("is not valid, plese re enter")
-        
+    show_task()
+    if(len(tasks) == 0):
+        print("your dont have nby task to mark complete")
+        return
+    
 
+    try:
+        task_no = int(input("enter task no to mark as complete:-"))
+        if 1 <= task_no <= len(tasks):
+            if(tasks[task_no - 1].startswith("✅")):
+                print("your task is alredy completed")
+                return
+            tasks[task_no-1] = "✅" + tasks[task_no-1]
+            show_task()
 
-
+    except ValueError:
+        print("eneter valid task no..")
 
 while True:
-    print("\n __________To-Do-list__________")
-    print("1.add task")
-    print("2.delete task")
-    print("3.mark as complete task")
-    print("4.show task list")
-    print("5.exist task")
+    print("\n========== TO-DO APP ==========")
+    print("1. Add Task")
+    print("2. Delete Task")
+    print("3. Mark Complete")
+    print("4. Show Tasks")
+    print("5. Exit")
 
-    choise = input("enter your choise from(1-5):- ")
-
-    if(choise == "5"):
-        print("app is closing")
-        break
-    elif(choise not in ["1","2","3","4","5"]):
-        print("value is not valid plese enter correct choise")
-        continue
+    choise = input("enter your choise (1-5) : - ")
 
     if(choise == "1"):
-        a = input("enter your tas:-")
-        add_task(a)
-        print(tasks)
+        task = input("enter your task:- ")
+        add_task(task)
 
-    if(choise == "2"):
-        b = int(input("which task you wanted to delete:- "))
-        delet_task(b)
-        print(tasks)
+    elif(choise == "2"):
+        delete_task()
 
-    if(choise == "3"):
+    elif(choise == "3"):
         marks_complete()
 
-        
-        
+    elif(choise == "4"):
+        show_task()
+
+    elif(choise == "5"):
+        print("to do app is closing....")
+        break
+
+    else:
+        print("enter a valid choise from(1-5)")
+    
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+    
+    
+
+
+    
 
 
 
