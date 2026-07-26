@@ -1,19 +1,24 @@
+import os
+
 tasks = []
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_PATH = os.path.join(BASE_DIR, "todo_data.txt")
+
 def load_task():
     try:
-        with open("todo_data.txt","r") as file:
+        with open(FILE_PATH,"r") as file:
                 for line in file:
                     tasks.append(line.strip())
     except FileNotFoundError:
         pass
 
 def save_task():
-    with open("todo_data.txt","w")as f:
+    with open(FILE_PATH,"w")as f:
                 for task in tasks:
                     f.write(task + "\n")
     
-        
-    
+            
 def add_task(task):
     tasks.append(task)
     save_task()
