@@ -1,6 +1,22 @@
 tasks = []
+def load_task():
+    try:
+        with open("todo_data.txt","r") as file:
+                for line in file:
+                    tasks.append(line.strip())
+    except FileNotFoundError:
+        pass
+
+def save_task():
+    with open("todo_data.txt","w")as f:
+                for task in tasks:
+                    f.write(task + "\n")
+    
+        
+    
 def add_task(task):
     tasks.append(task)
+    save_task()
     print(f'"{task}"added task sucsessfully')
 
 def show_task():
@@ -22,6 +38,7 @@ def delete_task():
     try:
         task_no = int(input("inter task no"))
         deleted = tasks.pop(task_no - 1)
+        save_task()
         print(f"your task{deleted}.delete sucseffuly")
         show_task()
 
@@ -39,14 +56,17 @@ def marks_complete():
         task_no = int(input("enter task no to mark as complete:-"))
         if 1 <= task_no <= len(tasks):
             if(tasks[task_no - 1].startswith("✅")):
+                
                 print("your task is alredy completed")
                 return
             tasks[task_no-1] = "✅" + tasks[task_no-1]
+            save_task()
             show_task()
 
     except ValueError:
         print("eneter valid task no..")
 
+load_task()
 while True:
     print("\n========== TO-DO APP ==========")
     print("1. Add Task")
